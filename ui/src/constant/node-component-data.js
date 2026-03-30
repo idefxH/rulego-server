@@ -2270,7 +2270,7 @@ export const locales = {
         },
         systemPrompt: {
           label: 'System Message',
-          desc: 'Pre-defines model's foundational behavior framework and response style. Supports ${} placeholder variables',
+          desc: 'Pre-defines the model foundational behavior framework and response style. Supports ${} placeholder variables',
           component: {
             type: 'textarea',
           },
