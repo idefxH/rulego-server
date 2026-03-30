@@ -2,7 +2,7 @@
   <transport to="body">
     <div v-if="props.modelValue" class="fixed flex flex-col right-0 top-0 h-full w-[400px] bg-white shadow-lg" :style="computedStyle">
       <div class="flex flex-row p-4 justify-between">
-        <span>AI 助手</span>
+        <span>AI Assistant</span>
         <el-icon :size="28" @click="handleVisibleChange(false)">
           <Close />
         </el-icon>

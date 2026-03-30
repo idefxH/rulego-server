@@ -49,7 +49,7 @@ type listType = BubbleListItemProps & {
 
 const list: Ref<BubbleListProps<listType>['list']> = ref([]);
 
-// 初始化 OpenAI 实例
+// Initialize OpenAI instance
 function initOpenAi() {
   openai = new OpenAI({
     baseURL: gptConfig.url,
@@ -58,14 +58,14 @@ function initOpenAi() {
   });
 }
 
-// 处理发送消息
+// Handle sending messages
 async function handleSend(val: string) {
   formRef.value.validate((valid: boolean) => {
     if (!valid) {
       return;
     }
     senderRef.value.clear();
-    // 添加用户消息到列表
+    // AddUser messages to list
     list.value.push({
       key: list.value.length + 1,
       role: 'user',
@@ -80,7 +80,7 @@ async function handleSend(val: string) {
       avatarSize: '24px',
     });
 
-    // 调用 OpenAI 接口
+    // Call OpenAI API
     openai.chat.completions
       .create({
         messages: [
@@ -92,7 +92,7 @@ async function handleSend(val: string) {
         model: gptConfig.model,
       })
       .then((response) => {
-        // 添加 AI 回复到列表
+        // Add AI Reply to list
         list.value.push({
           key: list.value.length + 1,
           role: 'ai',
@@ -110,7 +110,7 @@ async function handleSend(val: string) {
   });
 }
 
-// 监听配置变化并重新初始化 OpenAI
+// Watch for configuration changes and reinitialize OpenAI
 watch(
   () => [gptConfig.apiKey, gptConfig.url,gptConfig.model],
   () => {
@@ -119,7 +119,7 @@ watch(
   }
 );
 
-// 初始化时调用
+// Called during initialization
 onMounted(() => {
   const storedConfig = localStorage.getItem('gptConfig');
   if (storedConfig) {

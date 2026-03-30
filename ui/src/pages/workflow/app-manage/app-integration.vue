@@ -17,14 +17,14 @@ const props = defineProps({
 const copyToClipboard = async (text) => {
   try {
     if (navigator.clipboard && window.isSecureContext) {
-      await navigator.clipboard.writeText(text); // 将文本复制到剪贴板
+      await navigator.clipboard.writeText(text); // Copy text to clipboard
       ElMessage({
         showClose: true,
-        message: '复制成功',
+        message: 'Copy Successful',
         type: 'success',
       });
     } else {
-      // 如果不是安全上下文，使用旧的execCommand方法
+      // If not a secure context, use the old execCommand method
       const textArea = document.createElement('textarea');
       textArea.value = text;
       document.body.appendChild(textArea);
@@ -33,7 +33,7 @@ const copyToClipboard = async (text) => {
       const successful = document.execCommand('copy');
       ElMessage({
         showClose: true,
-        message: successful ? '复制成功' : '复制失败',
+        message: successful ? 'Copy Successful' : 'Copy Failed',
         type: successful ? 'success' : 'error',
       });
       document.body.removeChild(textArea);
@@ -45,8 +45,8 @@ const copyToClipboard = async (text) => {
 </script>
 
 <template>
-  <el-descriptions column="1" border title="调用以下HTTP接口执行当前规则链">
-    <el-descriptions-item label="同步调用接口"
+  <el-descriptions column="1" border title="Call the following HTTP endpoint to execute current rule chain">
+    <el-descriptions-item label="Sync Call Interface"
       ><span
         @click="
           copyToClipboard(
@@ -56,10 +56,10 @@ const copyToClipboard = async (text) => {
         >POST /api/v1/rules/{{ props.formState.id }}/execute/{msgType}</span
       >
       <el-tag size="small" type="info"
-        >关注处理结果</el-tag
+        >Care about processing result</el-tag
       ></el-descriptions-item
     >
-    <el-descriptions-item label="异步调用接口"
+    <el-descriptions-item label="Async Call Interface"
       ><span
         @click="
           copyToClipboard(
@@ -69,7 +69,7 @@ const copyToClipboard = async (text) => {
         >POST /api/v1/rules/{{ props.formState.id }}/notify/{msgType}</span
       >
       <el-tag size="small" type="info"
-        >不关注处理结果</el-tag
+        >Ignore processing result</el-tag
       ></el-descriptions-item
     >
   </el-descriptions>

@@ -160,8 +160,8 @@ class VueHtmlNode extends HtmlNode {
 class VueHtmlNodeModel extends HtmlNodeModel {
   initNodeData(data) {
     super.initNodeData(data);
-    this.text.draggable = false; // 不允许文本被拖动
-    this.text.editable = false; // 不允许文本被编辑
+    this.text.draggable = false; // Text dragging not allowed
+    this.text.editable = false; // Text editing not allowed
   }
 
   setAttributes() {

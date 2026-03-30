@@ -17,11 +17,11 @@ const runDrawerRef = ref();
 const menuList = ref([
   {
     key: WORKFLOW_MENU_KEY.APP_MANAGE,
-    label: '应用管理',
+    label: 'Application Management',
   },
   {
     key: WORKFLOW_MENU_KEY.APP_DESIGN,
-    label: '应用设计',
+    label: 'Application Design',
   },
 ]);
 const menuActiveKey = ref(WORKFLOW_MENU_KEY.APP_MANAGE);
@@ -109,10 +109,10 @@ async function saveHandler() {
     });
     await Api.setRulesBase(params.id, params);
     await refreshFormState();
-    ElMessage.success('修改成功');
+    ElMessage.success('Modification Successful');
   } catch (error) {
     console.error(error);
-    ElMessage.error('修改失败');
+    ElMessage.error('Modification Failed');
   }
 }
 
@@ -122,7 +122,7 @@ async function saveFlowHandler() {
   await Api.setRules(id, ruleGoModel);
   await refreshFormState();
 
-  ElMessage.success('保存成功');
+  ElMessage.success('Saved successfully');
 }
 
 function openDrawerHandler() {
@@ -140,7 +140,7 @@ onMounted(() => {
     <div class="flex flex-none items-center border-b border-[var(--el-border-color)]">
       <div class="flex-none pl-2">
         <el-button icon="el-icon-arrow-left-bold" :text="true" @click="exitHandler">
-          退出
+          Exit
         </el-button>
       </div>
       <el-divider direction="vertical" />
@@ -153,21 +153,21 @@ onMounted(() => {
         </el-menu>
       </div>
       <div class="flex flex-grow items-center justify-center overflow-auto">
-        {{ bakValue?.ruleChain?.name || '应用名称' }}
+        {{ bakValue?.ruleChain?.name || 'Application Name' }}
       </div>
       <div class="min-w-[204px] flex-none px-4">
         <template v-if="[WORKFLOW_MENU_KEY.APP_DESIGN].includes(menuActiveKey)">
-          <el-button icon="el-icon-video-play" @click="openDrawerHandler">测试</el-button>
-          <el-button icon="el-icon-upload-filled" type="primary" @click="saveFlowHandler">保存</el-button>
+          <el-button icon="el-icon-video-play" @click="openDrawerHandler">Test</el-button>
+          <el-button icon="el-icon-upload-filled" type="primary" @click="saveFlowHandler">Save</el-button>
         </template>
       </div>
     </div>
     <div class="flex-grow overflow-auto">
-      <!-- 应用管理 -->
+      <!-- Application Management -->
       <app-manage v-if="menuActiveKey === WORKFLOW_MENU_KEY.APP_MANAGE"
         :base-info-form-state="formState.baseInfoFormState" :variable-state="formState.variableState"
         @save="saveHandler"/>
-      <!-- 应用设计 -->
+      <!-- Application Design -->
       <app-design-new ref="appDesignNewRef" v-if="menuActiveKey === WORKFLOW_MENU_KEY.APP_DESIGN"
         v-model="flowData"/>
     </div>

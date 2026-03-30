@@ -48,7 +48,7 @@ function addNodeHandler(event) {
             <el-icon><el-icon-plus /></el-icon>
           </div>
           <div class="flex items-center uppercase">
-            {{ data.nodes.length ? '添加并行节点' : '选择下一个节点' }}
+            {{ data.nodes.length ? 'Add Parallel Node' : 'Select Next Node' }}
           </div>
         </div>
       </div>

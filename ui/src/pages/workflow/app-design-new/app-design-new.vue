@@ -39,7 +39,7 @@ function handelDesignToJson() {
 let jsonToDocTimer = 0;
 function handelJsonToDesign() {
 
-  //连续输入code不要频繁更新图。
+  //Do not update graph too frequently on continuous code input.
   if (jsonToDocTimer) {
     clearTimeout(jsonToDocTimer);
   }
@@ -53,7 +53,7 @@ function getData() {
 }
 
 /**
- * 处理代码更新
+ * Handle code update
  * @param {string} newVal 
  */
 function handelSourceCodeUpdate(newVal) {
@@ -63,7 +63,7 @@ function handelSourceCodeUpdate(newVal) {
 }
 
 /**
- * 处理图更新
+ * Handle graph update
  * @param {string} newVal 
  */
 function handleDesignUpdate(newVal) {
@@ -74,7 +74,7 @@ function handleDesignUpdate(newVal) {
 watch(
   () => props.modelValue,
   (newVal) => {
-    val.value = newVal; // 当父组件更新 modelValue 时，同步更新 val
+    val.value = newVal; // Sync update val when parent component updates modelValue
   },
   { deep: true }
 );
@@ -106,7 +106,7 @@ defineExpose({
       <chat-list-view class="flex-1" />
     </div>
     <tool-buttons v-model="toolButtons" class="absolute top-4 right-4" />
-    <!--20250507暂时注释掉ai助手-->
+    <!--20250507Temporarily comment out AI assistant -->
     <!-- <div @click="isAiVisible = true" class="absolute bottom-24 right-10 size-[50px] flex justify-center items-center rounded-full bg-white cursor-pointer border">
       <el-icon :size="28">
         <Assistant />

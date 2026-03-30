@@ -28,7 +28,7 @@ function initEditor() {
     extensions: [
       minimalSetup,
       EditorView.lineWrapping,
-      placeholder('请输入'),
+      placeholder('Please Input'),
       EditorState.transactionFilter.of((tr) => {
         return tr.newDoc.lines > 1 ? [] : [tr];
       }),

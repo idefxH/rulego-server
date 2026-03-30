@@ -18,7 +18,7 @@ const emit = defineEmits(['save']);
 
 const formRef = ref();
 const rules = ref({
-  name: [{ required: true, message: '应用名称不能为空', trigger: 'blur' }],
+  name: [{ required: true, message: 'Application Name is required', trigger: 'blur' }],
 });
 
 async function saveHandler() {
@@ -40,31 +40,31 @@ async function saveHandler() {
       label-position="top"
     >
       <el-form-item label="ID" prop="id">{{ formState.id }}</el-form-item>
-      <el-form-item label="应用名称" prop="name">
-        <el-input v-model="formState.name" placeholder="应用名称" />
+      <el-form-item label="Application Name" prop="name">
+        <el-input v-model="formState.name" placeholder="Application Name" />
       </el-form-item>
-      <el-form-item label="调试模式" prop="debugMode">
+      <el-form-item label="Debug Mode" prop="debugMode">
         <el-switch
           class="ml-2"
           v-model="formState.debugMode"
           style="--el-switch-on-color: #13ce66; --el-switch-off-color: #ff4949"
         />
         <el-text class="mx-2" size="small">
-          开启后会覆盖节点的调试模式配置，所有节点会打印调试日志
+          When enabled, overrides node debug mode settings; all nodes will print debug logs
         </el-text>
       </el-form-item>
-      <el-form-item label="描述" prop="description">
+      <el-form-item label="Description" prop="description">
         <el-input
           type="textarea"
           v-model="formState.description"
           :autosize="{ minRows: 4, maxRows: 4 }"
           resize="none"
-          placeholder="应用描述"
+          placeholder="Application Description"
         ></el-input>
       </el-form-item>
     </el-form>
     <div class="flex w-full justify-center">
-      <el-button type="primary" @click="saveHandler">保存</el-button>
+      <el-button type="primary" @click="saveHandler">Save</el-button>
     </div>
   </div>
 </template>

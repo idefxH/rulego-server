@@ -51,7 +51,7 @@ function openDetail(id, tab = WORKFLOW_MENU_KEY.APP_MANAGE) {
 function openCreateAppModalHandler() {
   createAppModalRef.value.open();
 }
-//导入
+//Import
 function importHandler() {
   importDialogRef.value.open();
 }
@@ -63,9 +63,9 @@ function importSuccessHandler(id) {
   refreshData();
 }
 function deleteHandler(id, name) {
-  ElMessageBox.confirm(`删除后将无法恢复 [${name}]，是否继续删除？`, '警告', {
-    confirmButtonText: '确定',
-    cancelButtonText: '取消',
+  ElMessageBox.confirm(`DeleteThis cannot be undone [${name}]. Continue deleting?`, 'Warning', {
+    confirmButtonText: 'Confirm',
+    cancelButtonText: 'Cancel',
     type: 'warning',
     callback: async (action) => {
       if (action === 'confirm') {
@@ -77,11 +77,11 @@ function deleteHandler(id, name) {
 }
 
 function deploymentHandler(id, name, disabled) {
-  const actionName = disabled ? '部署' : '下线';
+  const actionName = disabled ? 'Deploy' : 'Offline';
 
-  ElMessageBox.confirm(`确定${actionName}[${name}]吗？`, '警告', {
-    confirmButtonText: '确定',
-    cancelButtonText: '取消',
+  ElMessageBox.confirm(`Confirm${actionName}[${name}]?`, 'Warning', {
+    confirmButtonText: 'Confirm',
+    cancelButtonText: 'Cancel',
     type: 'warning',
     callback: async (action) => {
       if (action === 'confirm') {
@@ -91,7 +91,7 @@ function deploymentHandler(id, name, disabled) {
     },
   });
 }
-//导出成json
+//Exportto JSON
 const handleDownloadData = (id, data) => {
   const jsonString = JSON.stringify(data, null, 2);
   let blob = new Blob([jsonString], { type: 'text/plain;charset=utf-8' });
@@ -107,15 +107,15 @@ onMounted(() => {
     <div class="flex flex-none items-center justify-between p-4">
       <div>
         <el-button @click="openCreateAppModalHandler">
-          <span>创建应用</span>
+          <span>Create Application</span>
         </el-button>
         <el-button @click="importHandler">
-          <span>导入应用</span>
+          <span>Import Application</span>
         </el-button>
       </div>
       <div class="w-[200px] flex-none">
         <el-input
-          placeholder="请输入工作流名称"
+          placeholder="Please enter Workflow Name"
           :clearable="true"
           v-model="formState.keywords"
           @keyup.enter="refreshData"

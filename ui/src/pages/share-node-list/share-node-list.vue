@@ -1,3 +1,3 @@
 <template>
-  <div>授权配置</div>
+  <div>Authorization Configuration</div>
 </template>

@@ -3,7 +3,7 @@ import { BezierEdge, BezierEdgeModel } from '@logicflow/core';
 class CustomEdge extends BezierEdge {}
 
 class CustomEdgeModel extends BezierEdgeModel {
-  // 设置边样式
+  // Set edge style
   getEdgeStyle() {
     const style = super.getEdgeStyle();
     if (this.isSelected) {
@@ -14,7 +14,7 @@ class CustomEdgeModel extends BezierEdgeModel {
     return style;
   }
 
-  // 设置 hover 轮廓样式
+  // Set hover outline style
   getOutlineStyle() {
     const style = super.getOutlineStyle();
     style.stroke = 'none';
@@ -23,7 +23,7 @@ class CustomEdgeModel extends BezierEdgeModel {
   }
 
   /**
-   * 给边自定义方案，使其支持基于锚点的位置更新边的路径
+   * Custom edge scheme to support updating edge path based on anchor position
    */
   updatePathByAnchor() {
     // TODO
@@ -50,7 +50,7 @@ class CustomEdgeModel extends BezierEdgeModel {
       };
       this.updateEndPoint(endPoint);
     }
-    // 这里需要将原有的pointsList设置为空，才能触发bezier的自动计算control点。
+    // Need to clear the existing pointsList to trigger bezier auto-calculation of control points.
     this.pointsList = [];
     this.initPoints();
   }

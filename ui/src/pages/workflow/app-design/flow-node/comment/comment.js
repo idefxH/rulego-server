@@ -52,7 +52,7 @@ class CommentHtmlNodeModel extends HtmlNodeModel {
     super.initNodeData(data);
     this.text.draggable = false;
     this.text.editable = false;
-    // 移除连线规则，因为注释节点不需要连线
+    // RemoveConnection rules, since comment nodes do not need connections
     this.sourceRules = [];
     this.targetRules = [];
 

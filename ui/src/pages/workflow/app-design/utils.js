@@ -34,7 +34,7 @@ export function generateDefaultPropertiesStatus() {
 }
 
 /**
- * @description 是否是 endpoint 节点
+ * @description YesWhether it is an endpoint node
  */
 export function isEndpointNode(nodeType, rawNodeType) {
   return (
@@ -44,7 +44,7 @@ export function isEndpointNode(nodeType, rawNodeType) {
 }
 
 /**
- * @description 从config 节点类型生成lf节点类型
+ * @description Generate LF node type from config node type
  * @param {*} rawNodeType
  */
 export function convertNodeType(rawNodeType) {
@@ -57,14 +57,14 @@ export function convertNodeType(rawNodeType) {
 }
 
 /**
- * @description 生成静态表单字段
+ * @description Generate static form fields
  */
 export function generateStaticFormFields(fields, config, nodeView) {
   let newFields = { ...fields };
   const transformatNodeType = EXTEND_NODE_TYPE_MAP[config.type] || 'default';
   if (isEndpointNode(transformatNodeType, config.type)) {
     if (newFields.routers !== undefined) {
-      console.error('动态字段已经设置了 routers 字段，请更换字段名');
+      console.error('Dynamic field already has routers field configured. Please change field name');
     } else {
       newFields.routers = {
         component: 'defaultEndpointsRoutersFormItem',
@@ -75,7 +75,7 @@ export function generateStaticFormFields(fields, config, nodeView) {
           {
             type: 'array',
             required: true,
-            message: '路由不能为空',
+            message: 'Route cannot be empty',
             trigger: 'change',
           },
         ],
@@ -85,7 +85,7 @@ export function generateStaticFormFields(fields, config, nodeView) {
 
   if (transformatNodeType === 'msg-type-switch') {
     if (newFields.routers !== undefined) {
-      console.error('动态字段已经设置了 routers 字段，请更换字段名');
+      console.error('Dynamic field already has routers field configured. Please change field name');
     } else {
       newFields.routers = {
         component: 'simpleRoutersFormItem',
@@ -93,7 +93,7 @@ export function generateStaticFormFields(fields, config, nodeView) {
           {
             type: 'array',
             required: true,
-            message: '路由不能为空',
+            message: 'Route cannot be empty',
             trigger: 'change',
           },
         ],
@@ -104,7 +104,7 @@ export function generateStaticFormFields(fields, config, nodeView) {
   return newFields;
 }
 /**
- * @description 生成动态表单字段
+ * @description Generate dynamic form fields
  */
 export function generateFormFields(configFields) {
   let fields = {};
@@ -198,7 +198,7 @@ export function generateStaticFormData(form, config) {
   const isEndpoints = isEndpointNode(transformatNodeType, config.type);
   if (isEndpoints || transformatNodeType === 'msg-type-switch') {
     if (newForm.routers !== undefined) {
-      console.error('动态字段已经设置了 routers 字段，请更换字段名');
+      console.error('Dynamic field already has routers field configured. Please change field name');
     } else {
       newForm.routers = [];
     }
@@ -208,7 +208,7 @@ export function generateStaticFormData(form, config) {
 }
 
 /**
- * @description json 转换成 switch 节点的 cases 表单值
+ * @description json Convert to switch node cases form value
  */
 export function generateSwitchNodeFormCasesValue(arr) {
   const newVal = arr.map((item) => {
@@ -228,9 +228,9 @@ export function generateSwitchNodeFormCasesValue(arr) {
   return newVal;
 }
 
-// 自定义节点相关
+// Custom node related
 /**
- * @description 自定义节点的锚点自定义样式方法
+ * @description Custom anchor style method for custom nodes
  */
 export function customNodeGetAnchorShape(anchorData) {
   const { x, y, type, id } = anchorData;
@@ -349,11 +349,11 @@ export function customNodeGetAnchorShape(anchorData) {
 }
 
 /**
- * 将图的数据转换为规则引擎的规则链数据
- * @description 将图的数据转换为规则引擎的规则链数据
- * @param {*} flowData 图的数据
- * @param {*} oldRuleGoModel 规则引擎的规则链数据
- * @returns newRuleGoModel 更新后的规则引擎的规则链数据
+ * Convert graph data to rule engine chain data
+ * @description Convert graph data to rule engine chain data
+ * @param {*} flowData Graph data
+ * @param {*} oldRuleGoModel Rule engine chain data
+ * @returns newRuleGoModel UpdateRule engine chain data after
  */
 export function mapFlowDataModelToRuleGoModel(flowData, oldRuleGoModel) {
   const data = flowData;
@@ -513,34 +513,34 @@ function generateRouters(params,data, endpointsNode) {
 }
 /**
  *
- * @param {*} ruleGoModel 规则引擎的规则链数据
- * @param {*} menuList 菜单列表
- * @description 将规则引擎的规则链数据转换为图的数据
- * @returns { { nodes:[],edges:[] }} data 图的数据
+ * @param {*} ruleGoModel Rule engine chain data
+ * @param {*} menuList Menu list
+ * @description Convert rule engine chain data to graph data
+ * @returns { { nodes:[],edges:[] }} data Graph data
  */
 export function mapRuleGoModelToFlowDataModel(ruleGoModel, menuList) {
   let tNodes = [];
   let tEdges = [];
   const userData = cloneDeep(ruleGoModel);
 
-  // 转换逻辑
+  // Conversion logic
 
   let ruleChainAdditionalInfo = {};
-  //规则链Id名称等数据
+  //Rule chain ID, name and other data
   if (userData.ruleChain) {
     ruleChainAdditionalInfo = userData.ruleChain.additionalInfo || {};
   }
-  //默认数据
+  //Default data
   let initData = {
-    //开始节点ID
+    //StartNode ID
     startNodeId: 'start',
-    startNodeText: '开始',
+    startNodeText: 'Start',
     startNodeType: 'start',
     nodeCount: 0,
     edgeCount: 0,
     nodeWidth: 200,
   };
-  //开始节点
+  //StartNode
   const options = {
     startX: 280,
     startY: 280,
@@ -552,7 +552,7 @@ export function mapRuleGoModelToFlowDataModel(ruleGoModel, menuList) {
     parseInt(ruleChainAdditionalInfo.layoutY || options.startY) ||
     options.startY;
   let hasEndpoint = userData?.metadata?.endpoints?.length > 0;
-  //如果没有endpoint节点，添加start固定节点
+  //If no endpoint node, add a fixed start node
   if (!hasEndpoint) {
     tNodes.push({
       id: initData.startNodeId,
@@ -563,17 +563,17 @@ export function mapRuleGoModelToFlowDataModel(ruleGoModel, menuList) {
     });
   }
 
-  //第一个普通节点(非endpoint节点)
+  //First regular node (non-endpoint node)
   let firstNode = null;
-  //最大节点Id序号
+  //Maximum node ID sequence number
   let maxNodeIdSeq = 0;
   let firstNodeIndex =
     (userData.metadata && userData.metadata.firstNodeIndex) || 0;
-  //转换节点
+  //Convert node
   if (userData && userData.metadata && userData.metadata.nodes) {
     userData.metadata.nodes.forEach((item, index) => {
       initData.nodeCount++;
-      //获取节点类型
+      //Get node type
       let nodeType = item.type;
 
       if (firstNodeIndex === index) {
@@ -597,7 +597,7 @@ export function mapRuleGoModelToFlowDataModel(ruleGoModel, menuList) {
       });
     });
   }
-  //转换输入端节点
+  //Convert input terminal node
   if (hasEndpoint) {
     userData.metadata.endpoints.forEach((item, index) => {
       referenceX = referenceX + 150;
@@ -617,16 +617,16 @@ export function mapRuleGoModelToFlowDataModel(ruleGoModel, menuList) {
       });
     });
   }
-  //输入端节点连接列表
+  //Input TerminalNode connection list
   let endpointConnections = [];
-  //如果没有endpoint节点，添加start节点和第一个节点连线
+  //If no endpoint node, add start node and connect to first node
   if (!hasEndpoint && firstNode) {
     endpointConnections = [
       { fromId: initData.startNodeId, toId: firstNode.id },
     ];
   }
 
-  //处理输入端节点连线
+  //Handle input terminal node connections
   if (userData.metadata && userData.metadata.endpoints) {
     userData.metadata.endpoints.forEach((item, index) => {
       endpointConnections = endpointConnections.concat(
@@ -636,11 +636,11 @@ export function mapRuleGoModelToFlowDataModel(ruleGoModel, menuList) {
   }
 
   let connections = endpointConnections;
-  //转换其他节点边连线
+  //Convert other node edge connections
   if (userData && userData.metadata && userData.metadata.connections) {
     connections = connections.concat(userData.metadata.connections);
   }
-  //渲染边
+  //Render edges
   connections.forEach((item) => {
     initData.edgeCount++;
     let edge = createEdge(initData, tNodes, item);
@@ -661,7 +661,7 @@ export function mapRuleGoModelToFlowDataModel(ruleGoModel, menuList) {
 }
 
 /**
- * 创建边
+ * CreateEdge
  * @param {*} initData
  * @param {*} nodes
  * @param {*} item
@@ -693,7 +693,7 @@ export function createEdge(initData, nodes, item) {
   return edge;
 }
 
-//通过id查找节点
+//Find node by id
 export function getNodeByID(nodes, id) {
   let node = {};
   if (nodes) {
@@ -723,7 +723,7 @@ export function generateStaticAnchors(config) {
   return anchors;
 }
 
-//获取endpoint连线
+//Get endpoint connections
 export function getEndpointConnections(fromId, endpointModel, firstNode) {
   let connections = [];
   if (!firstNode) {
@@ -732,7 +732,7 @@ export function getEndpointConnections(fromId, endpointModel, firstNode) {
   if (endpointModel.routers && endpointModel.routers.length > 0) {
     endpointModel.routers.forEach((item) => {
       if (item.to && item.to.path) {
-        //格式:chainId:nodeId1:nodeId2:nodeId3
+        //Format: chainId:nodeId1:nodeId2:nodeId3
         let values = item.to.path.split(':');
         let path = toFromPath(item).trim();
         if (values.length <= 1) {
@@ -744,7 +744,7 @@ export function getEndpointConnections(fromId, endpointModel, firstNode) {
             type: path,
           });
         } else {
-          //从1开始遍历节点ID
+          //Traverse Node IDs starting from 1
           for (let i = 1; i < values.length; i++) {
             connections.push({
               fromId: fromId,

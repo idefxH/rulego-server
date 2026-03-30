@@ -54,7 +54,7 @@ let miniMapOptions = {
 const flowContainerRef = ref();
 const selectedNodeId = ref('');
 const addNodeData = ref();
-// 触发[变更节点]需要的数据
+// Data required to trigger [Change Node]
 const changeNodeState = ref({
   oldNode: undefined,
 });
@@ -112,7 +112,7 @@ function flowAnchorClickHandler({ clientX, clientY, model, anchorId }) {
     sourceModel: model,
     sourceAnchorId: anchorId,
   };
-  // 判断节点是否只能有一个下级节点相关处理
+  // Check if node can only have one downstream node
   updateNodePropertiesNextNodesById(model.id);
   const newModel = lf.getNodeModelById(model.id);
   const anchorCanConnectOnlyOneNode =
@@ -125,10 +125,10 @@ function flowAnchorClickHandler({ clientX, clientY, model, anchorId }) {
       return item.sourceAnchorId === anchorId;
     });
 
-  // 如果节点只能有一个下级节点，且已经有下级节点，不允许触发 anchorClick 事件
+  // If node can only have one downstream and already has one, do not trigger anchorClick event
   if (anchorCanConnectOnlyOneNode && totalEdges.length > 0) {
     ElMessage({
-      message: '该锚点只能有一个下级节点',
+      message: 'This anchor point can have only one child node',
       type: 'warning',
     });
     return;
@@ -141,9 +141,9 @@ function flowAnchorDropHandler() {
 }
 
 /**
- * @description 根据 id 计算节点高度
+ * @description Calculate node height by id
  * @param nodeId string
- * @param move boolean 是否进行节点矫正
+ * @param move boolean YesWhether to perform node correction
  */
 function updateNodePropertiesHeightById(nodeId, move = true) {
   const model = lf.getNodeModelById(nodeId);
@@ -151,14 +151,14 @@ function updateNodePropertiesHeightById(nodeId, move = true) {
   const oHeight = model.height;
   if (rootEl) {
     setTimeout(() => {
-      // Info: 克隆节点放到 body 里边，防止 logicflow 缩放时影响节点高度计算
+      // Info: Place cloned node in body to prevent LogicFlow zoom from affecting node height calculation
       let containerParentEl = rootEl.querySelector(`#${nodeId}`);
 
       if (!containerParentEl) return;
       containerParentEl = containerParentEl.cloneNode(true);
       const containerEl = containerParentEl.children[0];
       if (!containerEl) {
-        console.error('自定义节点 HTML 结构不正确');
+        console.error('Custom node HTML structure is incorrect');
         return;
       }
       containerParentEl.removeAttribute('id');
@@ -172,7 +172,7 @@ function updateNodePropertiesHeightById(nodeId, move = true) {
 
       containerParentEl.remove();
 
-      // 2 * 2 为上下边框的高度
+      // 2 * 2 For the height of top and bottom borders
       let nHeight = height + 2 * 2;
 
       lf.setProperties(nodeId, {
@@ -191,7 +191,7 @@ function updateNodePropertiesHeightById(nodeId, move = true) {
 }
 
 /**
- * @description 根据 id 生成节点[下一步]的数据
+ * @description Generate next node data by id
  * @param nodeId string
  */
 function updateNodePropertiesNextNodesById(nodeId) {
@@ -223,7 +223,7 @@ function updateNodePropertiesNextNodesById(nodeId) {
           nodeTitle:
             node.properties?.formData?.title ||
             node.properties?.formData?.additionalInfo?.title ||
-            '未命名',
+            'Unnamed',
         };
       });
 
@@ -246,7 +246,7 @@ function updateNodePropertiesNextNodesById(nodeId) {
 }
 
 /**
- * @description 根据 id 更新节点的 properties.formData 数据
+ * @description Update node properties.formData data by id
  * @param nodeId string
  * @param data object
  */
@@ -260,7 +260,7 @@ function updateNodePropertiesFormData(nodeId, data) {
 }
 
 /**
- * @description 根据 id 计算节点锚点的 Y 值
+ * @description Calculate node anchor Y value by id
  * @param nodeId string
  */
 function updateNodePropertiesAnchorsYById(nodeId) {
@@ -269,7 +269,7 @@ function updateNodePropertiesAnchorsYById(nodeId) {
   const rootEl = model.graphModel.rootEl;
   if (rootEl) {
     setTimeout(() => {
-      // Info: 克隆节点放到 body 里边，防止 logicflow 缩放时影响节点高度计算
+      // Info: Place cloned node in body to prevent LogicFlow zoom from affecting node height calculation
       let containerParentEl = rootEl.querySelector(`#${nodeId}`);
 
       if (!containerParentEl) return;
@@ -300,7 +300,7 @@ function updateNodePropertiesAnchorsYById(nodeId) {
 }
 
 /**
- * @description 根据 id 更新节点 properties.status.isSelected
+ * @description Update node properties.status.isSelected by id
  * @param id string
  * @param isSelected boolean
  */
@@ -327,7 +327,7 @@ const updateNodePropertiesAnchorsMap = {
       ) || [];
     const newAnchors = [...staticAnchors];
 
-    // 删除连接旧动态锚点的边
+    // DeleteConnect edges to old dynamic anchors
     const oldDynamicAnchors =
       cloneDeep(
         properties?.anchors?.filter((item) => {
@@ -371,7 +371,7 @@ const updateNodePropertiesAnchorsMap = {
       ) || [];
     const newAnchors = [...staticAnchors];
 
-    // 删除连接旧动态锚点的边
+    // DeleteConnect edges to old dynamic anchors
     const oldDynamicAnchors =
       cloneDeep(
         properties?.anchors?.filter((item) => {
@@ -416,7 +416,7 @@ const updateNodePropertiesAnchorsMap = {
       ) || [];
     const newAnchors = [...staticAnchors];
 
-    // 删除连接旧动态锚点的边
+    // DeleteConnect edges to old dynamic anchors
     const oldDynamicAnchors =
       cloneDeep(
         properties?.anchors?.filter((item) => {
@@ -455,7 +455,7 @@ const updateNodePropertiesAnchorsMap = {
   },
 };
 /**
- * @description 根据某个节点的 id，更新节点的 properties.anchors 数据
+ * @description Update node properties.anchors data by node id
  */
 function updateNodePropertiesAnchorsById(id) {
   if (!lf || !id) return;
@@ -472,7 +472,7 @@ function updateNodePropertiesAnchorsById(id) {
 }
 
 /**
- * @description 更新所有 edges 的位置
+ * @description UpdatePosition of all edges
  */
 function updateEdgesPosition() {
   setTimeout(() => {
@@ -505,7 +505,7 @@ function initFlow() {
     pluginsOptions: {
       miniMap: miniMapOptions,
     },
-    allowResize: true, // 允许自定义调整大小
+    allowResize: true, // Allow custom size adjustment
   });
 
   lf.on('node:click', flowNodeClickHandler);
@@ -523,7 +523,7 @@ function initFlow() {
   lf.extension.menu.setMenuConfig({
     nodeMenu: [
       {
-        text: '删除节点',
+        text: 'Delete Node',
         callback(node) {
           deleteNode(node.id);
         },
@@ -531,7 +531,7 @@ function initFlow() {
     ],
     edgeMenu: [
       {
-        text: '删除边',
+        text: 'Delete Edge',
         callback(edge) {
           deleteEdge(edge.id);
         },
@@ -539,7 +539,7 @@ function initFlow() {
     ],
     graphMenu: [
       {
-        text: '添加注释',
+        text: 'Add comment',
         callback: () => {
           const point = lf.getPointByClient({
             x: mouseX.value,
@@ -562,7 +562,7 @@ function initFlow() {
       type: type,
       menu: [
         {
-          text: '变更节点',
+          text: 'Change Node',
           callback(node) {
             closeNodeFormBus.emit();
             showNodeMenuBus.emit(mouseX.value, mouseY.value);
@@ -634,7 +634,7 @@ async function lfRender() {
     );
     // return [...ENDPOINTS_NODE_TYPE_KEYS, 'start'].includes(item.type);
   });
-  // 聚焦开始节点
+  // Focus on start node
   lf.focusOn({
     id: startNode.id,
   });
@@ -789,7 +789,7 @@ function changeFlowNodeHandler(newNode) {
 }
 
 /**
- * @description 删除节点
+ * @description Delete Node
  */
 function deleteNode(nodeId) {
   if (!nodeId || !lf) return;
@@ -802,7 +802,7 @@ function deleteNode(nodeId) {
   updateSelectedNodePropertiesNextNodes();
 }
 /**
- * @description 删除节点
+ * @description Delete Node
  */
 function deleteEdge(edgeId) {
   if (!edgeId || !lf) return;
@@ -810,7 +810,7 @@ function deleteEdge(edgeId) {
   lf.deleteEdge(edgeId);
 }
 
-// 获取lf实例
+// Get LF instance
 function getLf() {
   return lf;
 }

@@ -32,7 +32,7 @@ function handelDesignToJson() {
 let jsonToDocTimer = 0;
 function handelJsonToDesign() {
 
-  //连续输入code不要频繁更新图。
+  //Do not update graph too frequently on continuous code input.
   if(jsonToDocTimer) {
     clearTimeout(jsonToDocTimer);
   }
@@ -61,7 +61,7 @@ function handleDesignUpdate(newVal) {
 watch(
   () => props.modelValue,
   (newVal) => {
-    val.value = newVal; // 当父组件更新 modelValue 时，同步更新 val
+    val.value = newVal; // Sync update val when parent component updates modelValue
   },
   { deep: true }
 );

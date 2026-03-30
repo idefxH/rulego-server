@@ -5,9 +5,9 @@ import DivInput from '@src/components/config-form/custom-form-item/switch-node-f
 const props = defineProps({
   /**
    * @type {Object}
-   * @property {string} field 字段名
-   * @property {string} value 字段值
-   * @property {string} operator 操作符
+   * @property {string} field Field name
+   * @property {string} value Field value
+   * @property {string} operator Operationoperator
    */
   form: {
     type: Object,
@@ -27,59 +27,59 @@ const emit = defineEmits(['delete']);
 const isHover = ref(false);
 const dropdownMenus = ref([
   {
-    label: '等于',
+    label: 'Equal',
     value: '==',
   },
   {
-    label: '不等于',
+    label: 'Not Equal',
     value: '!=',
   },
   {
-    label: '大于',
+    label: 'Greater Than',
     value: '>',
   },
   {
-    label: '大于等于',
+    label: 'Greater Than or Equal',
     value: '>=',
   },
   {
-    label: '小于',
+    label: 'Less Than',
     value: '<',
   },
   {
-    label: '小于等于',
+    label: 'Less Than or Equal',
     value: '<=',
   },
   {
-    label: '是',
+    label: 'Yes',
     value: 'equal',
   },
   {
-    label: '不是',
+    label: 'Not',
     value: 'notEqual',
   },
   {
-    label: '包含',
+    label: 'Contains',
     value: 'contains',
   },
   {
-    label: '不包含',
+    label: 'Does Not Contain',
     value: 'notContains',
   },
   {
-    label: '开始是',
+    label: 'Start With',
     value: 'startsWith',
   },
   {
-    label: '结束是',
+    label: 'End With',
     value: 'endsWith',
   },
   {
-    label: '为空',
+    label: 'Empty',
     value: 'null',
   },
   {
-    label: '不为空',
+    label: 'Not Empty',
     value: 'notNull',
   },
 ]);

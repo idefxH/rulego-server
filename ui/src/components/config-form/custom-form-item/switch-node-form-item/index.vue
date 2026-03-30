@@ -87,7 +87,7 @@ watch(
       <div
         class="group relative min-h-[40px] rounded-[10px] bg-white px-3 py-1"
       >
-        <!-- 拖拽图标 -->
+        <!-- Drag icon -->
         <!-- <svg
         viewBox="0 0 24 24"
         xmlns="http://www.w3.org/2000/svg"
@@ -105,7 +105,7 @@ watch(
         >
           <div>ELSE</div>
           <div class="font-medium text-[#676f83]">
-            用于定义当 if 条件不满足时应执行的逻辑。
+            Used to define the logic to execute when the if condition is not met.
           </div>
         </div>
       </div>

@@ -36,7 +36,7 @@ function initEditor() {
 }
 
 /**
- * 获取滚动位置 (Get Scroll Position)
+ * Get scroll position
  * This function retrieves the current scroll position of an element.
  * It is used to track the vertical and horizontal scroll offsets.
  * @returns {{ x: number, y: number }} An object containing the x and y scroll positions.
@@ -55,7 +55,7 @@ function getScrollInfo() {
 }
 
 /**
- * 设置滚动位置 (Set Scroll Position)
+ * Set scroll position
  * This function sets the scroll position of an element to a specified x and y coordinate.
  * It is used to programmatically scroll to a specific position within the editor. 
  * @param { number } x 
